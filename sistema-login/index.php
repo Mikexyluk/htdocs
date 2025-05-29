@@ -9,7 +9,7 @@ $pagina = "home";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Cadastro de Clientes</title>
+    <title>Dados</title>
     <!-- Bootstrap Dark Theme -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -23,6 +23,7 @@ $pagina = "home";
             background-color: #23272b;
             border: none;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            margin-bottom: 1.5rem;
         }
         .card-title, .card-footer, .bi {
             color: #f8f9fa;
@@ -49,12 +50,23 @@ $pagina = "home";
                 <div class="card text-center">
                     <div class="card-body">
                         <i class="bi bi-people" style="font-size: 2.5rem;"></i>
-                        <h5 class="card-title mt-3">Clientes
-                            (<?php echo isset($_SESSION["clientes"]) ? count($_SESSION["clientes"]) : 0;?>)
+                        <h5 class="card-title mt-3">
+                            Clientes (<?php echo isset($_SESSION["clientes"]) ? count($_SESSION["clientes"]) : 0;?>)
                         </h5>
                     </div>
                     <div class="card-footer">
                         <a href="<?php echo $_SESSION["url"];?>/clientes" class="btn btn-primary w-100">Acessar</a>
+                    </div>
+                </div>
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="bi bi-truck" style="font-size: 2.5rem;"></i>
+                        <h5 class="card-title mt-3">
+                            Fornecedores (<?php echo isset($_SESSION["fornecedores"]) ? count($_SESSION["fornecedores"]) : 0;?>)
+                        </h5>
+                    </div>
+                    <div class="card-footer">
+                        <a href="<?php echo $_SESSION["url"];?>/fornecedores" class="btn btn-primary w-100">Acessar</a>
                     </div>
                 </div>
             </div>
