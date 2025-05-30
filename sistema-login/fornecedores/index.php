@@ -35,36 +35,27 @@ if (isset($_GET["key"])) {
                         <label for="fornecedorId" class="form-label">Código do Fornecedor</label>
                         <input type="text" class="form-control" id="fornecedorId" name="fornecedorId" readonly value="<?php echo isset($fornecedor) ? $fornecedor["id_fornecedor"] : ""; ?>">
                     </div>
+
                     <div class="mb-3">
-                        <label for="fornecedorName" class="form-label">Nome do Fornecedor</label>
-                        <input onblur="teste()" type="text" class="form-control" id="fornecedorName" name="fornecedorName" required value="<?php echo isset($fornecedor) ? $fornecedor["nome"] : ""; ?>">
+                        <label for="fornecedorrazaoSocial" class="form-label">Razão Social</label>
+                        <input type="text" class="form-control" id="fornecedorrazaoSocial" name="fornecedorrazaoSocial" required value="<?php echo isset($fornecedor) ? $fornecedor["razao_social"] : ""; ?>">
                     </div>
+
                     <div class="mb-3">
-                        <label for="fornecedorCPF" class="form-label">CPF</label>
-                        <input data-mask="000.000.000-00" type="text" class="form-control" id="fornecedorCPF" name="fornecedorCPF" required value="<?php echo isset($fornecedor) ? $fornecedor["cpf"] : ""; ?>">
+                        <label for="fornecedorCNPJ" class="form-label">CNPJ</label>
+                        <input data-mask="00.000.000/0000-00" type="text" class="form-control" id="fornecedorCNPJ" name="fornecedorCNPJ" required value="<?php echo isset($fornecedor) ? $fornecedor["cnpj"] : ""; ?>">
                     </div>
+
                     <div class="mb-3">
                         <label for="fornecedorEmail" class="form-label">E-mail</label>
                         <input type="email" class="form-control" id="fornecedorEmail" name="fornecedorEmail" required value="<?php echo isset($fornecedor) ? $fornecedor["email"] : ""; ?>">
                     </div>
+
                     <div class="mb-3">
                         <label for="fornecedorPhone" class="form-label">Telefone</label>
-                        <input data-mask="(00) 0 0000-0000" type="text" class="form-control" id="fornecedorPhone" name="fornecedorPhone" required value="<?php echo isset($fornecedor) ? $fornecedor["whatsapp"] : ""; ?>">
+                        <input data-mask="(00) 00000-0000" type="text" class="form-control" id="fornecedorPhone" name="fornecedorPhone" required value="<?php echo isset($fornecedor) ? $fornecedor["telefone"] : ""; ?>">
                     </div>
-                    <div class="mb-3">
-                        <label for="fornecedorImage" class="form-label">Imagem</label>
-                        <input type="file" class="form-control" id="fornecedorImage" name="fornecedorImage" accept="image/*" value="<?php echo isset($fornecedor) ? $fornecedor["imagem"] : ""; ?>">
-                    </div>
-                    <?php
-                    if (isset($fornecedor["imagem"])) {
-                        echo '
-                        <div class="mb-3">
-                            <input type="hidden" name="currentFornecedorImage" value="' . $fornecedor["imagem"] . '">
-                            <img width="100" src="imagens/' . $fornecedor["imagem"] . '">
-                        </div>
-                        ';
-                    }
-                    ?>
+
                     <div class="mb-3">
                         <label for="fornecedorCEP" class="form-label">CEP</label>
                         <input data-mask="00000-000" type="text" class="form-control" id="fornecedorCEP" name="fornecedorCEP" required value="<?php echo isset($fornecedor) ? $fornecedor["endereco"]["cep"] : ""; ?>">
@@ -129,7 +120,7 @@ tr>
                                     <td>' . $fornecedor["email"] . '</td>
                                     <td>
                                         <a href="?key=' . $fornecedor["id_fornecedor"] . '" class="btn btn-warning btn-sm">Editar</a>
-                                        <a href="excluir.php?key=' . $fornecedor["id_fornecedor"] . '" class="btn btn-danger btn-sm">Excluir</a>
+                                        <a href="/fornecedores/remover.php?key='.$fornecedor["id_fornecedor"].'" class="btn btn-danger btn-sm">Excluir</a>
                                     </td>
                                 ';
                             }

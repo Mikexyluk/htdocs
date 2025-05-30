@@ -123,7 +123,11 @@ if (isset($_GET["key"])) {
                                 echo '
                                 <tr>
                                     <th scope="row">'.$client["id_cliente"].'</th>
+                                    <td>'.$client["nome"].'</td>
+                                    <td>'.$client["cpf"].'</td>
+                                    <td>'.$client["email"].'</td>
                                     <td>'.$client["whatsapp"].'</td>
+                                    <td><img width="50" src="imagens/'.$client["imagem"].'"></td>
                                     <td>
                                         <a href="/clientes/?key='.$client["id_cliente"].'" class="btn btn-warning btn-sm">Editar</a>
                                         <a href="/clientes/remover.php?key='.$client["id_cliente"].'" class="btn btn-danger btn-sm">Excluir</a>

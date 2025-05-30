@@ -45,28 +45,70 @@ $pagina = "home";
     ?>
 
     <div class="container mt-5">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center g-4">
+            <!-- Card: Clientes -->
             <div class="col-md-4">
-                <div class="card text-center">
+                <div class="card text-center h-100">
                     <div class="card-body">
                         <i class="bi bi-people" style="font-size: 2.5rem;"></i>
                         <h5 class="card-title mt-3">
-                            Clientes (<?php echo isset($_SESSION["clientes"]) ? count($_SESSION["clientes"]) : 0;?>)
+                            Clientes
                         </h5>
+                        <p class="mb-0 text-secondary">
+                            <span class="fw-bold fs-4">
+                                <?php echo isset($_SESSION["clientes"]) ? count($_SESSION["clientes"]) : 0;?>
+                            </span>
+                            cadastrados
+                        </p>
                     </div>
-                    <div class="card-footer">
-                        <a href="<?php echo $_SESSION["url"];?>/clientes" class="btn btn-primary w-100">Acessar</a>
+                    <div class="card-footer bg-transparent border-0">
+                        <a href="<?php echo $_SESSION["url"];?>/clientes" class="btn btn-primary w-100">
+                            <i class="bi bi-arrow-right-circle me-2"></i>Acessar
+                        </a>
                     </div>
                 </div>
-                <div class="card text-center">
+            </div>
+            <!-- Card: Fornecedores -->
+            <div class="col-md-4">
+                <div class="card text-center h-100">
                     <div class="card-body">
                         <i class="bi bi-truck" style="font-size: 2.5rem;"></i>
                         <h5 class="card-title mt-3">
-                            Fornecedores (<?php echo isset($_SESSION["fornecedores"]) ? count($_SESSION["fornecedores"]) : 0;?>)
+                            Fornecedores
                         </h5>
+                        <p class="mb-0 text-secondary">
+                            <span class="fw-bold fs-4">
+                                <?php echo isset($_SESSION["fornecedores"]) ? count($_SESSION["fornecedores"]) : 0;?>
+                            </span>
+                            cadastrados
+                        </p>
                     </div>
-                    <div class="card-footer">
-                        <a href="<?php echo $_SESSION["url"];?>/fornecedores" class="btn btn-primary w-100">Acessar</a>
+                    <div class="card-footer bg-transparent border-0">
+                        <a href="<?php echo $_SESSION["url"];?>/fornecedores" class="btn btn-primary w-100">
+                            <i class="bi bi-arrow-right-circle me-2"></i>Acessar
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card: Produtoa -->
+            <div class="col-md-4">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="bi bi-box-seam" style="font-size: 2.5rem;"></i>
+                        <h5 class="card-title mt-3">
+                            Produtos
+                        </h5>
+                        <p class="mb-0 text-secondary">
+                            <span class="fw-bold fs-4">
+                                <?php echo isset($_SESSION["produtos"]) ? count($_SESSION["produtos"]) : 0;?>
+                            </span>
+                            cadastrados
+                        </p>
+                    </div>
+                    <div class="card-footer bg-transparent border-0">
+                        <a href="<?php echo $_SESSION["url"];?>/produtos" class="btn btn-primary w-100">
+                            <i class="bi bi-arrow-right-circle me-2"></i>Acessar
+                        </a>
                     </div>
                 </div>
             </div>
