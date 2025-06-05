@@ -9,6 +9,7 @@ try {
         $sql = "
             SELECT *
             FROM produtos
+            JOIN marcas ON produtos.id_marca = marcas.id_marca
             WHERE id_produto = :id
         ";
  
@@ -25,6 +26,7 @@ try {
         $sql = "
             SELECT *
             FROM produtos
+            JOIN marcas ON produtos.id_marca = marcas.id_marca
             WHERE produto LIKE :produto
             ORDER BY produto
         ";
@@ -40,6 +42,7 @@ try {
         $sql = "
             SELECT *
             FROM produtos
+             JOIN marcas ON produtos.id_marca = marcas.id_marca
             ORDER BY produto
         ";
        

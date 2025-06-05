@@ -33,10 +33,11 @@ try{
     $msg = '';
     if ($_POST["productId"] == "") {
         $postifield = array(
-            "produto" => $_POST["product"],
+            "produto" => $_POST["produto"],
             "descricao" => $_POST["productDescription"],
             "preco" => $_POST["productPrice"],
-            "id_marca" => $_POST["productBrand"],
+            "id_marca" => $_POST["productmarca"],
+            "quantidade" => $_POST["quantidadeProduto"],
             "imagem" => $_POST["productImage"]
 
             
@@ -47,10 +48,11 @@ try{
     } else {
         $postifield = array(
             "id_produto" => $_POST["productId"],
-            "produto" => $_POST["product"],
+            "produto" => $_POST["produto"],
             "descricao" => $_POST["productDescription"],
             "preco" => $_POST["productPrice"],
-            "id_marca" => $_POST["productBrand"],
+            "id_marca" => $_POST["productmarca"],
+            "quantidade" => $_POST["quantidadeProduto"],
             "imagem" => $_POST["productImage"]
 
         );

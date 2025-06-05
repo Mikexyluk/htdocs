@@ -5,11 +5,12 @@ $pagina = "produtos";
 
 if (isset($_GET["key"])) {
     $key = $_GET["key"];
-    require("../requests/clientes/get.php");
+    require("../requests/produtos/get.php");
+    $key = null;
     if (isset($response["data"]) && !empty($response["data"])) {
-        $client = $response["data"][0];
+        $produto = $response["data"][0];
     } else {
-        $client = null;
+        $produto = null;
     }
 }
 ?>
@@ -36,14 +37,34 @@ if (isset($_GET["key"])) {
                         <input type="text" class="form-control" id="productId" name="productId" readonly value="<?php echo isset($produto) ? $produto["id_produto"] : ""; ?>">
                     </div>
                     <div class="mb-3">
-                        <label for="product" class="form-label">Produto</label>
-                        <input onblur="teste()" type="text" class="form-control" id="product" name="product" required value="<?php echo isset($produto) ? $produto["produtos"] : ""; ?>">
+                        <label for="produto" class="form-label">Produto</label>
+                        <input onblur="teste()" type="text" class="form-control" id="produto" name="produto" required value="<?php echo isset($produto) ? $produto["produto"] : ""; ?>">
                     </div>
 
                     <div class="mb-3">
-                        <label for="productPrice" class="form-label">Preço</label>
-                        <input data-mask="000.00" type="text" class="form-control" id="productPrice" name="productPrice" required value="<?php echo isset($produto) ? $produto["preco"] : ""; ?>">
+                        <label for="productmarca" class="form-label">Marca</label>
+                        <?php
+                        // $key = null;
+                        require("../requests/marcas/get.php");
+                        echo '<select class="form-select" id="productmarca" name="productmarca" required>';
+                        echo '<option value="">Selecione a marca</option>';
+                        if (!empty($response["data"])) {
+                            foreach ($response["data"] as $marca) {
+                                $selected = (isset($produto) && $produto["id_marca"] == $marca["id_marca"]) ? "selected" : "";
+                                echo '<option value="' . htmlspecialchars($marca["id_marca"]) . '" ' . $selected . '>' . htmlspecialchars($marca["marca"]) . '</option>';
+                            }
+                        }
+                        echo '</select>';
+                        ?>
                     </div>
+                        <div class="mb-3">
+                            <label for="productPrice" class="form-label">Preço</label>
+                            <input type="text" class="form-control" id="productPrice" name="productPrice" required value="<?php echo isset($produto) ? $produto["preco"] : ""; ?>">
+                        </div>
+                        <div class="mb-3">
+                            <label for="quantidadeProduto" class="form-label">Quantidade</label>
+                            <input type="number" class="form-control" id="quantidadeProduto" name="quantidadeProduto" required value="<?php echo isset($produto) ? $produto["quantidade"] : ""; ?>">
+                        </div>
 
                     
 
@@ -52,10 +73,7 @@ if (isset($_GET["key"])) {
                         <textarea class="form-control" id="productDescription" name="productDescription" rows="3"><?php echo isset($produto) ? $produto["descricao"] : ""; ?></textarea>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="productBrand" class="form-label">Marca</label>
-                        <input type="text" class="form-control" id="productBrand" name="productBrand" required value="<?php echo isset($produto) ? $produto["marca"] : ""; ?>">
-                    </div>
+                    
                     
                     <div class="mb-3">
                         <label for="productImage" class="form-label">Imagem</label>
@@ -89,28 +107,31 @@ if (isset($_GET["key"])) {
                             <th scope="col">Produto</th>
                             <th scope="col">Preço</th>
                             <th scope="col">Descrição</th>
+                            <th scope="col">Quantidade</th>
                             <th scope="col">Marca</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody id="productTableBody">
                         <?php
-                        $key = null;
+                        // $key = null;
                         require("../requests/produtos/get.php");
                         if(!empty($response)) {
                             foreach($response["data"] as $key => $produto) {
                                 echo '
                                 <tr>
                                     <th scope="row">' . $produto["id_produto"] . '</th>
-                                    <td>' . $produto["product"] . '</td>
                                     <td><img width="50" src="imagens/'.$produto["imagem"].'"></td>
+                                    <td>' . $produto["produto"] . '</td>
                                     <td>' . $produto["preco"] . '</td>
                                     <td>' . $produto["descricao"] . '</td>
+                                    <td>' . $produto["quantidade"] . '</td>
                                     <td>' . $produto["marca"] . '</td>
                                     <td>
-                                        <a href="?key=' . $produto["id_produto"] . '" class="btn btn-warning btn-sm">Editar</a>
-                                        <a href="/produtos/remover.php?key='.$produto["id_produto"].'" class="btn btn-danger btn-sm">Excluir</a>
-                                    </td>
+                                            <a href="/produtos/?key='.$produto["id_produto"].'" class="retro-btn btn btn-warning btn-sm">Editar</a>
+                                            <a href="/produtos/remover.php?key='.$produto["id_produto"].'" class="retro-btn btn btn-danger btn-sm">Excluir</a>
+                                        </td>
+ 
                                 </tr>
                                 ';
                             }
