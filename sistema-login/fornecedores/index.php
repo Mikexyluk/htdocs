@@ -15,85 +15,135 @@ if (isset($_GET["key"])) {
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Cadastro de Fornecedores</title>
+    <title>Fornecedores</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css" rel="stylesheet">
+    <style>
+    body {
+        background: #181a1b;
+        color: #f8f9fa !important;
+        min-height: 100vh;
+    }
+
+    .main-container {
+        max-width: 1000px;
+        margin: 48px auto 0 auto;
+    }
+
+    .card {
+        background: #23272b;
+        border-radius: 12px;
+        box-shadow: 0 2px 16px #00000030;
+        color: #f8f9fa !important;
+    }
+
+    .card-header {
+        background: transparent;
+        border-bottom: 1px solid #343a40;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px 24px 12px 24px;
+        color: #f8f9fa !important;
+    }
+
+    .page-title {
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom: 0;
+        color: #fff !important;
+    }
+
+    .action-btns .btn {
+        margin-right: 4px;
+    }
+
+    .btn-primary,
+    .btn-success,
+    .btn-danger,
+    .btn-warning {
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        color: #fff !important;
+    }
+
+    .table th,
+    .table td {
+        vertical-align: middle;
+        color: #f8f9fa !important;
+        background: #23272b !important;
+    }
+
+    .table-dark {
+        --bs-table-bg: #23272b;
+        --bs-table-striped-bg: #23272b;
+        --bs-table-hover-bg: #343a40;
+        color: #f8f9fa !important;
+    }
+
+    .table-img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #343a40;
+        background: #23272b;
+    }
+
+    .dataTable-table>thead {
+        position: sticky;
+        top: 0;
+        background: #23272b;
+        z-index: 2;
+        color: #fff !important;
+    }
+
+    .dataTable-table th {
+        color: #fff !important;
+    }
+
+    @media (max-width: 900px) {
+        .main-container {
+            padding: 8px;
+        }
+
+        .card-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 16px 8px 8px 8px;
+        }
+
+        .page-title {
+            font-size: 1.2rem;
+        }
+    }
+    </style>
 </head>
+
 <body>
     <?php include "../mensagens.php"; include "../navbar.php"; ?>
-    <div class="container my-5">
-        <div class="row">
-            <div class="col-md-6">
-                <h2>
-                    Cadastrar Fornecedor
-                    <a href="./" class="btn btn-primary btn-sm">Novo Fornecedor</a>
-                </h2>
-                <form id="fornecedorForm" action="/fornecedores/cadastrar.php" method="POST" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label for="fornecedorId" class="form-label">Código do Fornecedor</label>
-                        <input type="text" class="form-control" id="fornecedorId" name="fornecedorId" readonly value="<?php echo isset($fornecedor) ? $fornecedor["id_fornecedor"] : ""; ?>">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="fornecedorrazaoSocial" class="form-label">Razão Social</label>
-                        <input type="text" class="form-control" id="fornecedorrazaoSocial" name="fornecedorrazaoSocial" required value="<?php echo isset($fornecedor) ? $fornecedor["razao_social"] : ""; ?>">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="fornecedorCNPJ" class="form-label">CNPJ</label>
-                        <input data-mask="00.000.000/0000-00" type="text" class="form-control" id="fornecedorCNPJ" name="fornecedorCNPJ" required value="<?php echo isset($fornecedor) ? $fornecedor["cnpj"] : ""; ?>">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="fornecedorEmail" class="form-label">E-mail</label>
-                        <input type="email" class="form-control" id="fornecedorEmail" name="fornecedorEmail" required value="<?php echo isset($fornecedor) ? $fornecedor["email"] : ""; ?>">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="fornecedorPhone" class="form-label">Telefone</label>
-                        <input data-mask="(00) 00000-0000" type="text" class="form-control" id="fornecedorPhone" name="fornecedorPhone" required value="<?php echo isset($fornecedor) ? $fornecedor["telefone"] : ""; ?>">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="fornecedorCEP" class="form-label">CEP</label>
-                        <input data-mask="00000-000" type="text" class="form-control" id="fornecedorCEP" name="fornecedorCEP" required value="<?php echo isset($fornecedor) ? $fornecedor["endereco"]["cep"] : ""; ?>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="fornecedorStreet" class="form-label">Logradouro</label>
-                        <input type="text" class="form-control" id="fornecedorStreet" name="fornecedorStreet" required value="<?php echo isset($fornecedor) ? $fornecedor["endereco"]["logradouro"] : ""; ?>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="fornecedorNumber" class="form-label">Número</label>
-                        <input type="text" class="form-control" id="fornecedorNumber" name="fornecedorNumber" required value="<?php echo isset($fornecedor) ? $fornecedor["endereco"]["numero"] : ""; ?>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="fornecedorComplement" class="form-label">Complemento</label>
-                        <input type="text" class="form-control" id="fornecedorComplement" name="fornecedorComplement" value="<?php echo isset($fornecedor) ? $fornecedor["endereco"]["complemento"] : ""; ?>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="fornecedorNeighborhood" class="form-label">Bairro</label>
-                        <input type="text" class="form-control" id="fornecedorNeighborhood" name="fornecedorNeighborhood" required value="<?php echo isset($fornecedor) ? $fornecedor["endereco"]["bairro"] : ""; ?>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="fornecedorCity" class="form-label">Cidade</label>
-                        <input type="text" readonly maxlength="2" class="form-control" id="fornecedorCity" name="fornecedorCity" required value="<?php echo isset($fornecedor) ? $fornecedor["endereco"]["cidade"] : ""; ?>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="fornecedorState" class="form-label">Estado</label>
-                        <input type="text" readonly class="form-control" id="fornecedorState" name="fornecedorState" required value="<?php echo isset($fornecedor) ? $fornecedor["endereco"]["estado"] : ""; ?>">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Salvar</button>
-                </form>
+    <div class="main-container">
+        <div class="card">
+            <div class="card-header">
+                <span class="page-title">Fornecedores Cadastrados</span>
+                <div>
+                    <a href="/fornecedores/formulario.php" class="btn btn-primary me-1"><i
+                            class="bi bi-plus-circle"></i> Novo</a>
+                    <a href="exportar.php" class="btn btn-success btn-sm me-1"><i class="bi bi-file-earmark-excel"></i>
+                        Excel</a>
+                    <a href="exportar_pdf.php" class="btn btn-danger btn-sm"><i class="bi bi-file-earmark-pdf"></i>
+                        PDF</a>
+                </div>
             </div>
-            <div class="col-md-6">
-                <h2>
-                    Fornecedores Cadastrados
-                    <a href="exportar.php" class="btn btn-success btn-sm float-left">Excel</a>
-                    <a href="exportar_pdf.php" class="btn btn-danger btn-sm float-left">PDF</a>
-                </h2>
-                <table class="table table-striped">
+            <div class="card-body">
+                <table id="myTable" class="table table-dark table-hover align-middle mb-0">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
@@ -111,23 +161,23 @@ if (isset($_GET["key"])) {
                         if(!empty($response)) {
                             foreach($response["data"] as $key => $fornecedor) {
                                 echo '
-                                <
-tr>
-                                    <th scope="row">' . $fornecedor["id_fornecedor"] . '</th>
-                                    <td>' . $fornecedor["razao_social"] . '</td>
-                                    <td>' . $fornecedor["cnpj"] . '</td>
-                                    <td>' . $fornecedor["telefone"] . '</td>
-                                    <td>' . $fornecedor["email"] . '</td>
-                                    <td>
-                                        <a href="?key=' . $fornecedor["id_fornecedor"] . '" class="btn btn-warning btn-sm">Editar</a>
-                                        <a href="/fornecedores/remover.php?key='.$fornecedor["id_fornecedor"].'" class="btn btn-danger btn-sm">Excluir</a>
-                                    </td>
+                                <tr>
+                                <th scope="row">' . $fornecedor["id_fornecedor"] . '</th>
+                                <td>' . $fornecedor["razao_social"] . '</td>
+                                <td>' . $fornecedor["cnpj"] . '</td>
+                                <td>' . $fornecedor["telefone"] . '</td>
+                                <td>' . $fornecedor["email"] . '</td>
+                                <td>
+                                 <a href="/fornecedores/formulario.php?key='.$fornecedor["id_fornecedor"].'" class="btn btn-warning btn-sm">Editar</a>
+                                        <a href="/fornecedores/remover.php?key='.$fornecedor["id_fornecedor"].'" class="btn btn-danger btn-sm" onclick="return confirm(\'Tem certeza que deseja excluir este fornecedor?\')">Excluir</a>
+                                </td>
+                                </tr>
                                 ';
                             }
                         } else {
                             echo '
                             <tr>
-                                <td colspan="7">Nenhum fornecedor cadastrado</td>
+                            <td colspan="7">Nenhum fornecedor cadastrado</td>
                             </tr>
                             ';
                         }
@@ -140,6 +190,14 @@ tr>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
+    <script>
+    let table = new DataTable('#myTable', {
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json'
+        }
+    });
+    </script>
     <script>
     $('#fornecedorCEP').on('blur', function() {
         var cep = $(this).val().replace(/\D/g, '');
@@ -169,5 +227,7 @@ tr>
         }
     });
     </script>
+    
 </body>
+
 </html>
