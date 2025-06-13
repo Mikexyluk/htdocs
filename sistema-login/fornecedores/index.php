@@ -142,6 +142,7 @@ if (isset($_GET["key"])) {
                         PDF</a>
                 </div>
             </div>
+            
             <div class="card-body">
                 <table id="myTable" class="table table-dark table-hover align-middle mb-0">
                     <thead>

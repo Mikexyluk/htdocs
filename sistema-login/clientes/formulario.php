@@ -136,7 +136,7 @@ if (isset($_GET["key"])) {
                                     value="<?php echo isset($client) ? $client["whatsapp"] : ""; ?>">
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="clientImage" class="form-label">Imagem</label>
                                 <input type="file" class="form-control" id="clientImage" name="clientImage"
                                     accept="image/*">
@@ -149,45 +149,56 @@ if (isset($_GET["key"])) {
                                 }
                                 ?>
                             </div>
-
+                            
                             <div class="col-md-4">
                                 <label for="clientCEP" class="form-label">CEP</label>
                                 <input data-mask="00000-000" type="text" class="form-control" id="clientCEP"
-                                    name="clientCEP" required
-                                    value="<?php echo isset($client) ? $client["endereco"]["cep"] : ""; ?>">
+                                name="clientCEP" required
+                                value="<?php echo isset($client) ? $client["endereco"]["cep"] : ""; ?>">
                             </div>
-
+                            
                             <div class="col-md-8">
                                 <label for="clientStreet" class="form-label">Logradouro</label>
                                 <input type="text" class="form-control" id="clientStreet" name="clientStreet" required
-                                    value="<?php echo isset($client) ? $client["endereco"]["logradouro"] : ""; ?>">
+                                value="<?php echo isset($client) ? $client["endereco"]["logradouro"] : ""; ?>">
                             </div>
                             <div class="col-md-3">
                                 <label for="clientNumber" class="form-label">Número</label>
                                 <input type="text" class="form-control" id="clientNumber" name="clientNumber" required
-                                    value="<?php echo isset($client) ? $client["endereco"]["numero"] : ""; ?>">
+                                value="<?php echo isset($client) ? $client["endereco"]["numero"] : ""; ?>">
                             </div>
                             <div class="col-md-5">
                                 <label for="clientComplement" class="form-label">Complemento</label>
                                 <input type="text" class="form-control" id="clientComplement" name="clientComplement"
-                                    value="<?php echo isset($client) ? $client["endereco"]["complemento"] : ""; ?>">
+                                value="<?php echo isset($client) ? $client["endereco"]["complemento"] : ""; ?>">
                             </div>
                             <div class="col-md-4">
                                 <label for="clientNeighborhood" class="form-label">Bairro</label>
                                 <input type="text" class="form-control" id="clientNeighborhood"
-                                    name="clientNeighborhood" required
-                                    value="<?php echo isset($client) ? $client["endereco"]["bairro"] : ""; ?>">
+                                name="clientNeighborhood" required
+                                value="<?php echo isset($client) ? $client["endereco"]["bairro"] : ""; ?>">
                             </div>
                             <div class="col-md-6">
                                 <label for="clientCity" class="form-label">Cidade</label>
                                 <input type="text" readonly class="form-control" id="clientCity" name="clientCity"
-                                    required value="<?php echo isset($client) ? $client["endereco"]["cidade"] : ""; ?>">
+                                required value="<?php echo isset($client) ? $client["endereco"]["cidade"] : ""; ?>">
                             </div>
                             <div class="col-md-6">
                                 <label for="clientState" class="form-label">Estado</label>
                                 <input type="text" readonly class="form-control" id="clientState" name="clientState"
-                                    required value="<?php echo isset($client) ? $client["endereco"]["estado"] : ""; ?>">
+                                required value="<?php echo isset($client) ? $client["endereco"]["estado"] : ""; ?>">
                             </div>
+                        </div>
+                        <div class="col-12 col-md-6 d-flex align-items-end">
+                            <?php
+                            if (isset($produto["imagem"]) && $produto["imagem"]) {
+                                echo '
+                                <input type="hidden" name="currentClientImage" value="' . htmlspecialchars($produto["imagem"]) . '">
+                                <img id="imgPreview" class="img-preview" src="clientes/imagens/' . htmlspecialchars($produto["imagem"]) . '" alt="Imagem do produto">';
+                            } else {
+                                echo '<img id="imgPreview" class="img-preview" style="display:none;" alt="Preview da imagem">';
+                            }
+                            ?>
                         </div>
                         <div class="d-flex justify-content-end mt-4">
                             <button type="submit" href='./' class="btn btn-primary px-4">Salvar</button>
